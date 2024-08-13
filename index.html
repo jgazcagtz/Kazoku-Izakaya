@@ -200,7 +200,7 @@
 
         .catalog-btn {
             background-color: var(--primary-color);
-            color: var(--secondary-color);
+            color: var (--secondary-color);
             border: none;
             padding: 12px 20px;
             border-radius: 5px;
@@ -849,7 +849,7 @@
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select>
-                        <button class="choose-btn" data-product-id="${product.id}" onclick="window.addToCart(this)">Elegir</button>
+                        <button class="choose-btn" data-product-id="${product.id}" onclick="window.addToCart(this, '${layout}')">Elegir</button>
                     </div>`;
                 return productItem;
             }
@@ -862,10 +862,10 @@
                 });
             }
 
-            window.addToCart = function(buttonElement) {
+            window.addToCart = function(buttonElement, layout = 'vertical') {
                 const productId = parseInt(buttonElement.getAttribute('data-product-id'));
                 const product = products.find(p => p.id === productId);
-                const quantitySelect = document.getElementById(`quantity-vertical-${productId}`);
+                const quantitySelect = document.getElementById(`quantity-${layout}-${productId}`);
                 const quantity = parseInt(quantitySelect.value);
 
                 const existingProduct = cart.find(item => item.name === product.name);
