@@ -455,7 +455,7 @@
         }
 
         #whatsapp-btn:hover {
-            background-color: var (--accent-color);
+            background-color: var(--accent-color);
             color: var(--text-color);
         }
 
@@ -714,9 +714,9 @@
             <p>Pagar con PayPal:</p><br>
             <div id="paypal-form"></div><br>
             <div>
-               <label><input type="radio" name="payment-method" value="en línea" onchange="window.updatePaymentMethod(this.value)"checked> En línea</label><br> 
+               <label><input type="radio" name="payment-method" value="en línea" onchange="window.updatePaymentMethod(this.value)" checked> En línea</label><br> 
               
-              <label><input type="radio" name="payment-method" value="efectivo" onchange="window.updatePaymentMethod(this.value)" > Efectivo</label><br>
+              <label><input type="radio" name="payment-method" value="efectivo" onchange="window.updatePaymentMethod(this.value)"> Efectivo</label><br>
                 
                 <label><input type="radio" name="payment-method" value="Transferencia" onchange="window.updatePaymentMethod(this.value)"> Transferencia</label>
             </div><br>
@@ -777,46 +777,46 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const products = [
-                { name: "Edamame Trufado", price: 150, includes: "Edamame al vapor con sal marina y aceite de trufa negra.", category: "Entradas" },
-                { name: "Tartar de Atún Bluefin", price: 350, includes: "Atún Bluefin finamente picado con aguacate, tobiko y aderezo de ponzu y yuzu.", category: "Entradas" },
-                { name: "Tempura de Langosta", price: 450, includes: "Langosta fresca frita en una ligera tempura con salsa de soya dulce.", category: "Entradas" },
-                { name: "Tataki de Wagyu", price: 500, includes: "Finas láminas de wagyu sellado, acompañadas de salsa ponzu y jengibre fresco.", category: "Entradas" },
-                { name: "Sashimi de Hamachi", price: 400, includes: "Láminas de hamachi fresco servidas con rodajas de jalapeño, cilantro y ponzu.", category: "Entradas" },
-                { name: "Sopa Miso con Trufa Blanca", price: 200, includes: "Clásica sopa miso con un toque de trufa blanca y setas shiitake.", category: "Sopas" },
-                { name: "Ramen de Pato", price: 350, includes: "Caldo de pato confitado, fideos ramen caseros, huevo pochado y nori.", category: "Sopas" },
-                { name: "Dobin Mushi", price: 300, includes: "Sopa al vapor con mariscos frescos, servida en una tetera de cerámica.", category: "Sopas" },
-                { name: "Sopa de Almejas en Dashi", price: 280, includes: "Almejas frescas cocidas en un caldo de dashi y sake, con cebolleta y jengibre.", category: "Sopas" },
-                { name: "Sopa de Erizo de Mar", price: 380, includes: "Crema de erizo de mar con un toque de yuzu y alga nori.", category: "Sopas" },
-                { name: "Sukiyaki de Wagyu A5", price: 1200, includes: "Lonjas de wagyu A5 cocidas en mesa en una olla de hierro, con vegetales frescos y tofu.", category: "Platos Principales" },
-                { name: "Nigiri Omakase", price: 850, includes: "Selección de 10 piezas de nigiri de temporada, elegidas por el chef.", category: "Platos Principales" },
-                { name: "Chirashi Don", price: 700, includes: "Arroz de sushi cubierto con una selección premium de mariscos frescos.", category: "Platos Principales" },
-                { name: "Katsuo Tataki con Salsa Ponzu", price: 600, includes: "Bonito ligeramente asado, servido con salsa ponzu y ensalada de daikon.", category: "Platos Principales" },
-                { name: "Unagi Kabayaki", price: 550, includes: "Anguila asada con salsa dulce de soya, servida con arroz al vapor.", category: "Platos Principales" },
-                { name: "Robata de Mariscos", price: 750, includes: "Selección de mariscos frescos a la parrilla, servidos con salsa de miso y limón.", category: "Platos Principales" },
-                { name: "Salmón Teriyaki con Yuzu", price: 650, includes: "Filete de salmón a la parrilla con una salsa teriyaki de yuzu, acompañado de espárragos.", category: "Platos Principales" },
-                { name: "Pollo Karaage con Salsa de Sésamo", price: 450, includes: "Muslos de pollo crujientes, marinados y fritos, servidos con una salsa de sésamo y jengibre.", category: "Platos Principales" },
-                { name: "Tonkatsu de Iberico", price: 550, includes: "Chuleta de cerdo ibérico empanizada, servida con repollo y salsa tonkatsu casera.", category: "Platos Principales" },
-                { name: "Shabu-Shabu de Mariscos", price: 900, includes: "Caldo de kombu y sake para cocinar mariscos frescos en la mesa.", category: "Platos Principales" },
-                { name: "Fugu Sashimi", price: 1500, includes: "Sashimi de pez globo preparado por un chef con licencia, acompañado de salsa ponzu.", category: "Especialidades" },
-                { name: "Tempura de Erizo de Mar", price: 800, includes: "Erizo de mar fresco envuelto en alga y frito en tempura, servido con salsa tentsuyu.", category: "Especialidades" },
-                { name: "Takoyaki de Pulpo de Profundidad", price: 450, includes: "Bolas de masa frita rellenas de pulpo capturado en aguas profundas, con salsa de okonomiyaki.", category: "Especialidades" },
-                { name: "Omakase Chef's Table", price: 2500, includes: "Experiencia de degustación de 12 tiempos, personalizada por el chef.", category: "Especialidades" },
-                { name: "Matsusaka Beef Teppanyaki", price: 1800, includes: "Filete de Matsusaka cocinado al estilo teppanyaki, acompañado de vegetales de temporada.", category: "Especialidades" },
-                { name: "Sushi Incrustado con Oro", price: 1000, includes: "Nigiri de atún bluefin cubierto con una hoja de oro comestible y caviar.", category: "Especialidades" },
-                { name: "King Crab Gratinado con Miso", price: 1200, includes: "Cangrejo real gratinado con una mezcla de miso blanco y queso gruyere.", category: "Especialidades" },
-                { name: "Toro Tartare con Caviar Oscietra", price: 1300, includes: "Tartar de ventresca de atún acompañado de caviar Oscietra y hojas de shiso.", category: "Especialidades" },
-                { name: "Ikura Don", price: 850, includes: "Bol de arroz con huevas de salmón frescas, servidas con salsa de soya y wasabi.", category: "Especialidades" },
-                { name: "Yakiniku de Wagyu", price: 1100, includes: "Láminas de wagyu A5 cocidas en una parrilla de mesa, acompañadas de salsas caseras.", category: "Especialidades" },
-                { name: "Matcha Tiramisu", price: 250, includes: "Capas de bizcocho y mascarpone infusionado con matcha, espolvoreado con cacao japonés.", category: "Postres" },
-                { name: "Mochi de Sésamo Negro", price: 200, includes: "Tradicional mochi relleno de pasta de sésamo negro, servido con una bola de helado de vainilla.", category: "Postres" },
-                { name: "Helado de Wasabi y Yuzu", price: 180, includes: "Helado artesanal con un toque de wasabi fresco y cítricos yuzu.", category: "Postres" },
-                { name: "Crema Catalana de Sake", price: 220, includes: "Versión japonesa de la crema catalana, infusionada con sake y servida con una capa crujiente de azúcar.", category: "Postres" },
-                { name: "Tarta de Frutas con Gelatina de Sakura", price: 280, includes: "Tarta de frutas frescas con una gelatina de flor de cerezo, servida con crema batida.", category: "Postres" },
-                { name: "Cheesecake de Tofu y Miso", price: 260, includes: "Cheesecake ligero de tofu con un toque de miso dulce, servido con coulis de frambuesa.", category: "Postres" },
-                { name: "Parfait de Matcha y Azuki", price: 300, includes: "Parfait de matcha con capas de helado de azuki, nata montada y crujientes de arroz.", category: "Postres" },
-                { name: "Pudding de Kabocha", price: 240, includes: "Pudding de calabaza japonesa con caramelo de soya y crema de jengibre.", category: "Postres" },
-                { name: "Soufflé de Yuzu y Chocolate Blanco", price: 320, includes: "Soufflé ligero con notas de yuzu y un centro de chocolate blanco derretido.", category: "Postres" },
-                { name: "Daifuku de Fresas y Crema", price: 280, includes: "Mochi suave relleno de fresas frescas y crema batida, servido con salsa de frambuesa.", category: "Postres" }
+                { id: 1, name: "Edamame Trufado", price: 150, includes: "Edamame al vapor con sal marina y aceite de trufa negra.", category: "Entradas" },
+                { id: 2, name: "Tartar de Atún Bluefin", price: 350, includes: "Atún Bluefin finamente picado con aguacate, tobiko y aderezo de ponzu y yuzu.", category: "Entradas" },
+                { id: 3, name: "Tempura de Langosta", price: 450, includes: "Langosta fresca frita en una ligera tempura con salsa de soya dulce.", category: "Entradas" },
+                { id: 4, name: "Tataki de Wagyu", price: 500, includes: "Finas láminas de wagyu sellado, acompañadas de salsa ponzu y jengibre fresco.", category: "Entradas" },
+                { id: 5, name: "Sashimi de Hamachi", price: 400, includes: "Láminas de hamachi fresco servidas con rodajas de jalapeño, cilantro y ponzu.", category: "Entradas" },
+                { id: 6, name: "Sopa Miso con Trufa Blanca", price: 200, includes: "Clásica sopa miso con un toque de trufa blanca y setas shiitake.", category: "Sopas" },
+                { id: 7, name: "Ramen de Pato", price: 350, includes: "Caldo de pato confitado, fideos ramen caseros, huevo pochado y nori.", category: "Sopas" },
+                { id: 8, name: "Dobin Mushi", price: 300, includes: "Sopa al vapor con mariscos frescos, servida en una tetera de cerámica.", category: "Sopas" },
+                { id: 9, name: "Sopa de Almejas en Dashi", price: 280, includes: "Almejas frescas cocidas en un caldo de dashi y sake, con cebolleta y jengibre.", category: "Sopas" },
+                { id: 10, name: "Sopa de Erizo de Mar", price: 380, includes: "Crema de erizo de mar con un toque de yuzu y alga nori.", category: "Sopas" },
+                { id: 11, name: "Sukiyaki de Wagyu A5", price: 1200, includes: "Lonjas de wagyu A5 cocidas en mesa en una olla de hierro, con vegetales frescos y tofu.", category: "Platos Principales" },
+                { id: 12, name: "Nigiri Omakase", price: 850, includes: "Selección de 10 piezas de nigiri de temporada, elegidas por el chef.", category: "Platos Principales" },
+                { id: 13, name: "Chirashi Don", price: 700, includes: "Arroz de sushi cubierto con una selección premium de mariscos frescos.", category: "Platos Principales" },
+                { id: 14, name: "Katsuo Tataki con Salsa Ponzu", price: 600, includes: "Bonito ligeramente asado, servido con salsa ponzu y ensalada de daikon.", category: "Platos Principales" },
+                { id: 15, name: "Unagi Kabayaki", price: 550, includes: "Anguila asada con salsa dulce de soya, servida con arroz al vapor.", category: "Platos Principales" },
+                { id: 16, name: "Robata de Mariscos", price: 750, includes: "Selección de mariscos frescos a la parrilla, servidos con salsa de miso y limón.", category: "Platos Principales" },
+                { id: 17, name: "Salmón Teriyaki con Yuzu", price: 650, includes: "Filete de salmón a la parrilla con una salsa teriyaki de yuzu, acompañado de espárragos.", category: "Platos Principales" },
+                { id: 18, name: "Pollo Karaage con Salsa de Sésamo", price: 450, includes: "Muslos de pollo crujientes, marinados y fritos, servidos con una salsa de sésamo y jengibre.", category: "Platos Principales" },
+                { id: 19, name: "Tonkatsu de Iberico", price: 550, includes: "Chuleta de cerdo ibérico empanizada, servida con repollo y salsa tonkatsu casera.", category: "Platos Principales" },
+                { id: 20, name: "Shabu-Shabu de Mariscos", price: 900, includes: "Caldo de kombu y sake para cocinar mariscos frescos en la mesa.", category: "Platos Principales" },
+                { id: 21, name: "Fugu Sashimi", price: 1500, includes: "Sashimi de pez globo preparado por un chef con licencia, acompañado de salsa ponzu.", category: "Especialidades" },
+                { id: 22, name: "Tempura de Erizo de Mar", price: 800, includes: "Erizo de mar fresco envuelto en alga y frito en tempura, servido con salsa tentsuyu.", category: "Especialidades" },
+                { id: 23, name: "Takoyaki de Pulpo de Profundidad", price: 450, includes: "Bolas de masa frita rellenas de pulpo capturado en aguas profundas, con salsa de okonomiyaki.", category: "Especialidades" },
+                { id: 24, name: "Omakase Chef's Table", price: 2500, includes: "Experiencia de degustación de 12 tiempos, personalizada por el chef.", category: "Especialidades" },
+                { id: 25, name: "Matsusaka Beef Teppanyaki", price: 1800, includes: "Filete de Matsusaka cocinado al estilo teppanyaki, acompañado de vegetales de temporada.", category: "Especialidades" },
+                { id: 26, name: "Sushi Incrustado con Oro", price: 1000, includes: "Nigiri de atún bluefin cubierto con una hoja de oro comestible y caviar.", category: "Especialidades" },
+                { id: 27, name: "King Crab Gratinado con Miso", price: 1200, includes: "Cangrejo real gratinado con una mezcla de miso blanco y queso gruyere.", category: "Especialidades" },
+                { id: 28, name: "Toro Tartare con Caviar Oscietra", price: 1300, includes: "Tartar de ventresca de atún acompañado de caviar Oscietra y hojas de shiso.", category: "Especialidades" },
+                { id: 29, name: "Ikura Don", price: 850, includes: "Bol de arroz con huevas de salmón frescas, servidas con salsa de soya y wasabi.", category: "Especialidades" },
+                { id: 30, name: "Yakiniku de Wagyu", price: 1100, includes: "Láminas de wagyu A5 cocidas en una parrilla de mesa, acompañadas de salsas caseras.", category: "Especialidades" },
+                { id: 31, name: "Matcha Tiramisu", price: 250, includes: "Capas de bizcocho y mascarpone infusionado con matcha, espolvoreado con cacao japonés.", category: "Postres" },
+                { id: 32, name: "Mochi de Sésamo Negro", price: 200, includes: "Tradicional mochi relleno de pasta de sésamo negro, servido con una bola de helado de vainilla.", category: "Postres" },
+                { id: 33, name: "Helado de Wasabi y Yuzu", price: 180, includes: "Helado artesanal con un toque de wasabi fresco y cítricos yuzu.", category: "Postres" },
+                { id: 34, name: "Crema Catalana de Sake", price: 220, includes: "Versión japonesa de la crema catalana, infusionada con sake y servida con una capa crujiente de azúcar.", category: "Postres" },
+                { id: 35, name: "Tarta de Frutas con Gelatina de Sakura", price: 280, includes: "Tarta de frutas frescas con una gelatina de flor de cerezo, servida con crema batida.", category: "Postres" },
+                { id: 36, name: "Cheesecake de Tofu y Miso", price: 260, includes: "Cheesecake ligero de tofu con un toque de miso dulce, servido con coulis de frambuesa.", category: "Postres" },
+                { id: 37, name: "Parfait de Matcha y Azuki", price: 300, includes: "Parfait de matcha con capas de helado de azuki, nata montada y crujientes de arroz.", category: "Postres" },
+                { id: 38, name: "Pudding de Kabocha", price: 240, includes: "Pudding de calabaza japonesa con caramelo de soya y crema de jengibre.", category: "Postres" },
+                { id: 39, name: "Soufflé de Yuzu y Chocolate Blanco", price: 320, includes: "Soufflé ligero con notas de yuzu y un centro de chocolate blanco derretido.", category: "Postres" },
+                { id: 40, name: "Daifuku de Fresas y Crema", price: 280, includes: "Mochi suave relleno de fresas frescas y crema batida, servido con salsa de frambuesa.", category: "Postres" }
             ];
 
             let cart = [];
@@ -829,7 +829,7 @@
                 window.updateCart();
             }
 
-            function createProductElement(product, index, layout = 'vertical') {
+            function createProductElement(product, layout = 'vertical') {
                 const productItem = document.createElement('div');
                 productItem.classList.add(layout === 'horizontal' ? 'horizontal-product-item' : 'product-item');
                 productItem.innerHTML = `
@@ -837,7 +837,7 @@
                         <h3>${product.name}</h3>
                         <p>$${product.price.toFixed(2)}</p>
                         <p>${product.includes}</p>
-                        <select id="quantity-${layout}-${index}">
+                        <select id="quantity-${layout}-${product.id}">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -849,24 +849,25 @@
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select>
-                        <button class="choose-btn" onclick="window.addToCart(${index}, '${layout}')">Elegir</button>
-                    </div>
-                `;
+                        <button class="choose-btn" data-product-id="${product.id}" onclick="window.addToCart(this)">Elegir</button>
+                    </div>`;
                 return productItem;
             }
 
             function displayProducts(productsToDisplay, layout = 'vertical', containerId) {
                 const menu = document.getElementById(containerId);
                 menu.innerHTML = '';
-                productsToDisplay.forEach((product, index) => {
-                    menu.appendChild(createProductElement(product, index, layout));
+                productsToDisplay.forEach((product) => {
+                    menu.appendChild(createProductElement(product, layout));
                 });
             }
 
-            window.addToCart = function(index, layout = 'vertical') {
-                const quantitySelect = document.getElementById(`quantity-${layout}-${index}`);
+            window.addToCart = function(buttonElement) {
+                const productId = parseInt(buttonElement.getAttribute('data-product-id'));
+                const product = products.find(p => p.id === productId);
+                const quantitySelect = document.getElementById(`quantity-vertical-${productId}`);
                 const quantity = parseInt(quantitySelect.value);
-                const product = layout === 'horizontal' ? [...products].sort((a, b) => b.price - a.price)[index] : filteredProducts[index];
+
                 const existingProduct = cart.find(item => item.name === product.name);
 
                 if (existingProduct) {
@@ -875,7 +876,7 @@
                     cart.push({ name: product.name, price: product.price, quantity: quantity });
                 }
                 window.updateCart();
-                alert(`Se agregó ${quantity} ${product.name} al carrito`);
+                alert(`Se agregó ${quantity} ${product.name}${quantity > 1 ? 's' : ''} al carrito`);
             };
 
             window.updateCart = function() {
@@ -891,8 +892,8 @@
 
                 cart.forEach((item, index) => {
                     cartItemsSection.innerHTML += `<p>${item.name} - $${item.price} x ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</p>`;
-                    editCartItems.innerHTML += `
-                        <p>
+                    editCartItems.innerHTML += 
+                        `<p>
                             ${item.name} - $${item.price} x 
                             <button class="quantity-btn" onclick="window.updateCartItemQuantity(${index}, -1)">-</button>
                             ${item.quantity}
@@ -923,16 +924,15 @@
 
             function updatePayPalForm() {
                 const paypalForm = document.getElementById('paypal-form');
-                paypalForm.innerHTML = `
-                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                paypalForm.innerHTML = 
+                    `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                         <input type="hidden" name="cmd" value="_xclick" />
                         <input type="hidden" name="business" value="your-email@example.com" />
                         <input type="hidden" name="currency_code" value="USD" />
                         <input type="hidden" name="amount" value="${total.toFixed(2)}" />
                         <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.quantity})`).join(', ')}" />
                         <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-44px.png" border="0" name="submit" title="Pay with PayPal" alt="PayPal - The safer, easier way to pay online!" />
-                    </form>
-                `;
+                    </form>`;
             }
 
             function updateWhatsAppLink() {
