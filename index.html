@@ -830,29 +830,31 @@
             }
 
             function createProductElement(product, layout = 'vertical') {
-                const productItem = document.createElement('div');
-                productItem.classList.add(layout === 'horizontal' ? 'horizontal-product-item' : 'product-item');
-                productItem.innerHTML = `
-                    <div class="product-item-content">
-                        <h3>${product.name}</h3>
-                        <p>$${product.price.toFixed(2)}</p>
-                        <p>${product.includes}</p>
-                        <select id="quantity-${layout}-${product.id}">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                        <button class="choose-btn" data-product-id="${product.id}" onclick="window.addToCart(this, '${layout}')">Elegir</button>
-                    </div>`;
-                return productItem;
-            }
+    const productItem = document.createElement('div');
+    productItem.classList.add(layout === 'horizontal' ? 'horizontal-product-item' : 'product-item');
+    productItem.innerHTML = `
+        <img src="https://i.imgur.com/PVwzoSR.png" alt="${product.name}">
+        <div class="product-item-content">
+            <h3>${product.name}</h3>
+            <p>$${product.price.toFixed(2)}</p>
+            <p>${product.includes}</p>
+            <select id="quantity-${layout}-${product.id}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <button class="choose-btn" data-product-id="${product.id}" onclick="window.addToCart(this, '${layout}')">Elegir</button>
+        </div>`;
+    return productItem;
+}
+
 
             function displayProducts(productsToDisplay, layout = 'vertical', containerId) {
                 const menu = document.getElementById(containerId);
