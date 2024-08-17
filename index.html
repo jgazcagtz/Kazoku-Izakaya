@@ -705,6 +705,22 @@
             <p>Ofrecemos una selección exclusiva de platillos de alta cocina japonesa.</p>
             <p>¡Descubre nuestro menú y déjate sorprender por cada sabor!</p>
         </div>
+      <!-- Button to Open the Map Modal -->
+<button onclick="toggleMapModal()" class="choose-btn">Ver Ubicación en el Mapa</button>
+
+<!-- Map Modal -->
+<div id="map-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Ubicación</h2>
+            <span class="close" onclick="toggleMapModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1078.191607270965!2d-103.38890196640078!3d20.675396094284718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ae6e15304edd%3A0x574ab2db0bf56397!2sDiag.%20Golfo%20de%20Cort%C3%A9s%202875%20B%2C%20Vallarta%20Nte.%2C%2044690%20Guadalajara%2C%20Jal.!5e0!3m2!1sen!2smx!4v1723876481643!5m2!1sen!2smx" 
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
 
         <div id="cart">
             <h3>🛒 Carrito</h3>
@@ -769,6 +785,7 @@
                 </div>
             </div>
         </div>
+      
     </main>
     <footer style="color: white !important; background-color: var(--primary-color);">
         <h4>Kazoku Izakaya ® 2024</h4>
@@ -980,6 +997,20 @@
                 modal.style.display = 'none';
             }
         }
+      // Function to toggle the map modal
+function toggleMapModal() {
+    const mapModal = document.getElementById('map-modal');
+    mapModal.style.display = mapModal.style.display === 'block' ? 'none' : 'block';
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+    const mapModal = document.getElementById('map-modal');
+    if (event.target === mapModal) {
+        mapModal.style.display = 'none';
+    }
+}
+
     </script>
 </body>
 </html>
