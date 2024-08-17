@@ -941,7 +941,7 @@
                 const whatsappBtn = document.getElementById('whatsapp-btn');
                 const message = `Orden de Kazoku Izakaya:\n${cart.map(item => `${item.name} (${item.quantity}) - $${item.price} c/u`).join('\n')}\nTotal: $${total.toFixed(2)}\nMétodo de pago: ${selectedPaymentMethod}`;
                 const encodedMessage = encodeURIComponent(message);
-                whatsappBtn.href = `https://wa.me/525526627851?text=${encodedMessage}`;
+                whatsappBtn.href = `https://wa.me/525533355687?text=${encodedMessage}`;
                 whatsappBtn.style.display = total > 0 ? 'inline-flex' : 'none';
             }
 
