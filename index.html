@@ -946,8 +946,8 @@
                 paypalForm.innerHTML = 
                     `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                         <input type="hidden" name="cmd" value="_xclick" />
-                        <input type="hidden" name="business" value="your-email@example.com" />
-                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="hidden" name="business" value="gascagtz@gmail.com" />
+                        <input type="hidden" name="currency_code" value="MXN" />
                         <input type="hidden" name="amount" value="${total.toFixed(2)}" />
                         <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.quantity})`).join(', ')}" />
                         <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-44px.png" border="0" name="submit" title="Pay with PayPal" alt="PayPal - The safer, easier way to pay online!" />
