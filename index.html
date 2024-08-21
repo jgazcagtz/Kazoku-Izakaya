@@ -181,26 +181,9 @@
             animation: bounceIn 1s 3s;
         }
 
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-            70% {
-                transform: scale(0.9);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
         .catalog-btn {
             background-color: var(--primary-color);
-            color: var (--secondary-color);
+            color: var(--secondary-color);
             border: none;
             padding: 12px 20px;
             border-radius: 5px;
@@ -227,7 +210,6 @@
             left: 50%;
             transform: translateX(-50%);
             width: 220px;
-            animation: fadeIn 0.5s 8s;
         }
 
         .menu-title-container:hover .category-menu,
@@ -705,22 +687,23 @@
             <p>Ofrecemos una selección exclusiva de platillos de alta cocina japonesa.</p>
             <p>¡Descubre nuestro menú y déjate sorprender por cada sabor!</p>
         </div>
-      <!-- Button to Open the Map Modal -->
-<button onclick="toggleMapModal()" class="choose-btn">Ver Ubicación en el Mapa</button>
 
-<!-- Map Modal -->
-<div id="map-modal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Ubicación</h2>
-            <span class="close" onclick="toggleMapModal()">&times;</span>
+        <!-- Button to Open the Map Modal -->
+        <button onclick="toggleMapModal()" class="choose-btn">Ver Ubicación en el Mapa</button>
+
+        <!-- Map Modal -->
+        <div id="map-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Ubicación</h2>
+                    <span class="close" onclick="toggleMapModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1078.191607270965!2d-103.38890196640078!3d20.675396094284718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ae6e15304edd%3A0x574ab2db0bf56397!2sDiag.%20Golfo%20de%20Cort%C3%A9s%202875%20B%2C%20Vallarta%20Nte.%2C%2044690%20Guadalajara%2C%20Jal.!5e0!3m2!1sen!2smx!4v1723876481643!5m2!1sen!2smx" 
+                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1078.191607270965!2d-103.38890196640078!3d20.675396094284718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ae6e15304edd%3A0x574ab2db0bf56397!2sDiag.%20Golfo%20de%20Cort%C3%A9s%202875%20B%2C%20Vallarta%20Nte.%2C%2044690%20Guadalajara%2C%20Jal.!5e0!3m2!1sen!2smx!4v1723876481643!5m2!1sen!2smx" 
-                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-</div>
 
         <div id="cart">
             <h3>🛒 Carrito</h3>
@@ -736,6 +719,12 @@
                 
                 <label><input type="radio" name="payment-method" value="Transferencia" onchange="window.updatePaymentMethod(this.value)"> Transferencia</label>
             </div><br>
+            <div>
+                <label for="delivery-address">Dirección de Entrega:</label><br>
+                <input type="text" id="delivery-address" placeholder="Escribe tu dirección"><br><br>
+                <label for="order-notes">Notas:</label><br>
+                <textarea id="order-notes" placeholder="Añadir notas adicionales"></textarea><br><br>
+            </div>
             <p><a id="whatsapp-btn" href="#" target="_blank" style="display: none;"><br>
                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
                 Confirmar pedido - Whatsapp
@@ -782,6 +771,20 @@
                 <div class="modal-body" id="edit-cart-items"></div>
                 <div class="modal-footer">
                     <button class="edit-btn" onclick="window.toggleModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Modal -->
+        <div id="product-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Producto Seleccionado</h2>
+                    <span class="close" onclick="toggleProductModal()">&times;</span>
+                </div>
+                <div id="product-modal-content" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button class="edit-btn" onclick="addProductToCart()">Añadir al Carrito</button>
                 </div>
             </div>
         </div>
@@ -838,6 +841,7 @@
 
             let cart = [];
             let total = 0;
+            let selectedProduct = null;
             let selectedPaymentMethod = "efectivo"; // Default payment method
             let filteredProducts = [...products]; // Create a copy of products to use in filtering
 
@@ -847,31 +851,30 @@
             }
 
             function createProductElement(product, layout = 'vertical') {
-    const productItem = document.createElement('div');
-    productItem.classList.add(layout === 'horizontal' ? 'horizontal-product-item' : 'product-item');
-    productItem.innerHTML = `
-        <img src="https://i.imgur.com/PVwzoSR.png" alt="${product.name}">
-        <div class="product-item-content">
-            <h3>${product.name}</h3>
-            <p>$${product.price.toFixed(2)}</p>
-            <p>${product.includes}</p>
-            <select id="quantity-${layout}-${product.id}">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <button class="choose-btn" data-product-id="${product.id}" onclick="window.addToCart(this, '${layout}')">Elegir</button>
-        </div>`;
-    return productItem;
-}
-
+                const productItem = document.createElement('div');
+                productItem.classList.add(layout === 'horizontal' ? 'horizontal-product-item' : 'product-item');
+                productItem.innerHTML = `
+                    <img src="https://i.imgur.com/PVwzoSR.png" alt="${product.name}">
+                    <div class="product-item-content">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price.toFixed(2)}</p>
+                        <p>${product.includes}</p>
+                        <select id="quantity-${layout}-${product.id}">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <button class="choose-btn" data-product-id="${product.id}" onclick="window.showProductModal(${product.id}, '${layout}')">Elegir</button>
+                    </div>`;
+                return productItem;
+            }
 
             function displayProducts(productsToDisplay, layout = 'vertical', containerId) {
                 const menu = document.getElementById(containerId);
@@ -881,21 +884,35 @@
                 });
             }
 
-            window.addToCart = function(buttonElement, layout = 'vertical') {
-                const productId = parseInt(buttonElement.getAttribute('data-product-id'));
+            window.showProductModal = function(productId, layout = 'vertical') {
                 const product = products.find(p => p.id === productId);
                 const quantitySelect = document.getElementById(`quantity-${layout}-${productId}`);
                 const quantity = parseInt(quantitySelect.value);
+                selectedProduct = { ...product, quantity };
 
-                const existingProduct = cart.find(item => item.name === product.name);
+                const modalContent = document.getElementById('product-modal-content');
+                modalContent.innerHTML = `
+                    <img src="https://i.imgur.com/PVwzoSR.png" alt="${selectedProduct.name}" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover;">
+                    <h3>${selectedProduct.name}</h3>
+                    <p>Precio: $${selectedProduct.price.toFixed(2)}</p>
+                    <p>${selectedProduct.includes}</p>
+                    <p>Cantidad: ${selectedProduct.quantity}</p>
+                `;
+                toggleProductModal();
+            };
+
+            window.addProductToCart = function() {
+                const existingProduct = cart.find(item => item.name === selectedProduct.name);
 
                 if (existingProduct) {
-                    existingProduct.quantity += quantity;
+                    existingProduct.quantity += selectedProduct.quantity;
                 } else {
-                    cart.push({ name: product.name, price: product.price, quantity: quantity });
+                    cart.push({ name: selectedProduct.name, price: selectedProduct.price, quantity: selectedProduct.quantity });
                 }
+
                 window.updateCart();
-                alert(`Se agregó ${quantity} ${product.name}${quantity > 1 ? 's' : ''} al carrito`);
+                toggleProductModal();
+                alert(`Producto agregado al carrito: ${selectedProduct.name} x ${selectedProduct.quantity}`);
             };
 
             window.updateCart = function() {
@@ -956,7 +973,9 @@
 
             function updateWhatsAppLink() {
                 const whatsappBtn = document.getElementById('whatsapp-btn');
-                const message = `Orden de Kazoku Izakaya:\n${cart.map(item => `${item.name} (${item.quantity}) - $${item.price} c/u`).join('\n')}\nTotal: $${total.toFixed(2)}\nMétodo de pago: ${selectedPaymentMethod}`;
+                const deliveryAddress = document.getElementById('delivery-address').value;
+                const orderNotes = document.getElementById('order-notes').value;
+                const message = `Orden de Kazoku Izakaya:\n${cart.map(item => `${item.name} (${item.quantity}) - $${item.price} c/u`).join('\n')}\nTotal: $${total.toFixed(2)}\nMétodo de pago: ${selectedPaymentMethod}\nDirección de Entrega: ${deliveryAddress}\nNotas: ${orderNotes}`;
                 const encodedMessage = encodeURIComponent(message);
                 whatsappBtn.href = `https://wa.me/525533355687?text=${encodedMessage}`;
                 whatsappBtn.style.display = total > 0 ? 'inline-flex' : 'none';
@@ -991,26 +1010,24 @@
             modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'block' : 'none';
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('edit-modal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
+        window.toggleProductModal = function() {
+            const modal = document.getElementById('product-modal');
+            modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'block' : 'none';
         }
-      // Function to toggle the map modal
-function toggleMapModal() {
-    const mapModal = document.getElementById('map-modal');
-    mapModal.style.display = mapModal.style.display === 'block' ? 'none' : 'block';
-}
 
-// Close the modal if the user clicks outside of it
-window.onclick = function(event) {
-    const mapModal = document.getElementById('map-modal');
-    if (event.target === mapModal) {
-        mapModal.style.display = 'none';
-    }
-}
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
 
+        function toggleMapModal() {
+            const mapModal = document.getElementById('map-modal');
+            mapModal.style.display = mapModal.style.display === 'block' ? 'none' : 'block';
+        }
     </script>
 </body>
 </html>
