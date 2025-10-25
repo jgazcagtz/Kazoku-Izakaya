@@ -140,43 +140,30 @@ class KazokuIzakayaApp {
     setupCartHandlers() {
         // Cart toggle - Multiple event types for better mobile support
         const cartBtn = document.getElementById('floating-cart-btn');
-        const cartCloseBtn = document.querySelector('.cart-close');
         
         if (cartBtn) {
+            // Remove any existing listeners first
+            cartBtn.removeEventListener('click', this.handleCartClick);
+            cartBtn.removeEventListener('touchend', this.handleCartTouch);
+            
+            // Bind methods to preserve context
+            this.handleCartClick = this.handleCartClick.bind(this);
+            this.handleCartTouch = this.handleCartTouch.bind(this);
+            
             // Primary click event
-            cartBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Cart button clicked');
-                this.toggleCart();
-            });
+            cartBtn.addEventListener('click', this.handleCartClick);
             
             // Touch events for mobile
-            cartBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Cart button touched');
-                this.toggleCart();
-            });
+            cartBtn.addEventListener('touchend', this.handleCartTouch);
             
             // Prevent double-tap zoom on mobile
             cartBtn.addEventListener('touchstart', (e) => {
                 e.preventDefault();
             });
-        }
-        
-        if (cartCloseBtn) {
-            cartCloseBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.toggleCart();
-            });
             
-            cartCloseBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.toggleCart();
-            });
+            console.log('Cart button event listeners attached');
+        } else {
+            console.error('Cart button not found');
         }
 
         // Payment method changes
@@ -203,6 +190,20 @@ class KazokuIzakayaApp {
                 this.updateCart();
             }, 300));
         }
+    }
+
+    handleCartClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Cart button clicked');
+        this.toggleCart();
+    }
+
+    handleCartTouch(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Cart button touched');
+        this.toggleCart();
     }
 
     setupModalHandlers() {
@@ -773,20 +774,24 @@ class KazokuIzakayaApp {
 
     // ===== MODAL MANAGEMENT =====
     toggleCart() {
+        console.log('toggleCart called');
         this.togglePaymentModal();
     }
 
     togglePaymentModal() {
         const paymentModal = document.getElementById('payment-modal');
+        console.log('togglePaymentModal called', { paymentModal });
         
         if (paymentModal) {
             const isOpen = paymentModal.classList.contains('show');
+            console.log('Payment modal is currently:', isOpen ? 'open' : 'closed');
             
             if (isOpen) {
                 // Close modal
                 paymentModal.classList.remove('show');
                 document.body.style.overflow = '';
                 document.body.classList.remove('modal-open');
+                console.log('Payment modal closed');
             } else {
                 // Open modal
                 paymentModal.classList.add('show');
@@ -795,7 +800,10 @@ class KazokuIzakayaApp {
                 
                 // Update payment content when opening
                 this.updatePaymentModal();
+                console.log('Payment modal opened');
             }
+        } else {
+            console.error('Payment modal not found');
         }
     }
 
@@ -1088,6 +1096,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartBtn = document.getElementById('floating-cart-btn');
     if (cartBtn && !cartBtn.hasAttribute('data-listener-added')) {
         cartBtn.setAttribute('data-listener-added', 'true');
+        
+        // Simple click handler
         cartBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -1099,6 +1109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
+        // Touch handler for mobile
         cartBtn.addEventListener('touchend', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -1109,6 +1120,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('App not initialized or toggleCart method not available');
             }
         });
+        
+        // Prevent double-tap zoom
+        cartBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+        });
+        
+        console.log('Fallback cart button handlers attached');
     }
 });
 
