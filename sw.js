@@ -82,6 +82,20 @@ self.addEventListener('fetch', event => {
         return;
     }
     
+    // Skip chrome-extension and other unsupported schemes
+    if (url.protocol === 'chrome-extension:' || 
+        url.protocol === 'moz-extension:' || 
+        url.protocol === 'safari-extension:' ||
+        url.protocol === 'chrome:' ||
+        url.protocol === 'moz-extension:') {
+        return;
+    }
+    
+    // Skip data URLs and blob URLs
+    if (url.protocol === 'data:' || url.protocol === 'blob:') {
+        return;
+    }
+    
     // Handle different types of requests
     if (url.pathname === '/' || url.pathname === '/index.html') {
         // Serve main page from cache
@@ -99,10 +113,17 @@ self.addEventListener('fetch', event => {
                 }
                 
                 return fetch(request).then(fetchResponse => {
-                    const responseClone = fetchResponse.clone();
-                    caches.open(STATIC_CACHE).then(cache => {
-                        cache.put(request, responseClone);
-                    });
+                    if (fetchResponse.status === 200) {
+                        const responseClone = fetchResponse.clone();
+                        caches.open(STATIC_CACHE).then(cache => {
+                            cache.put(request, responseClone).catch(err => {
+                                console.warn('Failed to cache static asset:', err);
+                            });
+                        });
+                    }
+                    return fetchResponse;
+                }).catch(err => {
+                    console.warn('Failed to fetch static asset:', err);
                     return fetchResponse;
                 });
             })
@@ -120,7 +141,9 @@ self.addEventListener('fetch', event => {
                         const responseClone = fetchResponse.clone();
                         const cacheToUse = url.hostname === 'i.imgur.com' ? DYNAMIC_CACHE : STATIC_CACHE;
                         caches.open(cacheToUse).then(cache => {
-                            cache.put(request, responseClone);
+                            cache.put(request, responseClone).catch(err => {
+                                console.warn('Failed to cache external resource:', err);
+                            });
                         });
                     }
                     return fetchResponse;
@@ -142,7 +165,9 @@ self.addEventListener('fetch', event => {
                 if (response.status === 200) {
                     const responseClone = response.clone();
                     caches.open(DYNAMIC_CACHE).then(cache => {
-                        cache.put(request, responseClone);
+                        cache.put(request, responseClone).catch(err => {
+                            console.warn('Failed to cache dynamic resource:', err);
+                        });
                     });
                 }
                 return response;
@@ -167,8 +192,8 @@ self.addEventListener('push', event => {
     
     const options = {
         body: event.data ? event.data.text() : 'Nueva actualización disponible',
-        icon: '/icons/icon-192x192.png',
-        badge: '/icons/icon-72x72.png',
+        icon: 'https://i.imgur.com/m6xHJP8.png',
+        badge: 'https://i.imgur.com/m6xHJP8.png',
         vibrate: [200, 100, 200],
         data: {
             dateOfArrival: Date.now(),
@@ -177,13 +202,11 @@ self.addEventListener('push', event => {
         actions: [
             {
                 action: 'explore',
-                title: 'Ver Menú',
-                icon: '/icons/action-menu.png'
+                title: 'Ver Menú'
             },
             {
                 action: 'close',
-                title: 'Cerrar',
-                icon: '/icons/action-close.png'
+                title: 'Cerrar'
             }
         ]
     };

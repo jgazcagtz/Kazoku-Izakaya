@@ -335,16 +335,29 @@ class KazokuIzakayaApp {
 
     preloadCriticalResources() {
         const criticalResources = [
-            'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
-            'https://i.imgur.com/m6xHJP8.png',
-            'https://i.imgur.com/vLBB4FM.png'
+            {
+                href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
+                as: 'style',
+                crossorigin: 'anonymous'
+            },
+            {
+                href: 'https://i.imgur.com/m6xHJP8.png',
+                as: 'image'
+            },
+            {
+                href: 'https://i.imgur.com/vLBB4FM.png',
+                as: 'image'
+            }
         ];
 
         criticalResources.forEach(resource => {
             const link = document.createElement('link');
             link.rel = 'preload';
-            link.href = resource;
-            link.as = resource.includes('.css') ? 'style' : 'image';
+            link.href = resource.href;
+            link.as = resource.as;
+            if (resource.crossorigin) {
+                link.crossOrigin = resource.crossorigin;
+            }
             document.head.appendChild(link);
         });
     }
