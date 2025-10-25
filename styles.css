@@ -681,10 +681,20 @@ body {
     transition: right var(--transition-normal);
     overflow-y: auto;
     box-shadow: -10px 0 30px var(--shadow-strong);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .cart-container.open {
     right: 0;
+}
+
+/* Body scroll lock when cart is open */
+body.cart-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 /* Cart overlay for mobile */
@@ -945,11 +955,31 @@ body {
     z-index: var(--z-fixed);
     transition: all var(--transition-normal);
     box-shadow: 0 10px 25px var(--shadow-medium);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
 }
 
 .floating-cart-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 15px 35px var(--shadow-strong);
+}
+
+.floating-cart-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .floating-cart-btn {
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
 .floating-cart-btn svg {
@@ -1142,7 +1172,67 @@ body {
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 1024px) {
+/* ===== TABLET OPTIMIZATIONS ===== */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: var(--space-2xl);
+        transition: left var(--transition-normal);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-toggle.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .cart-container {
+        width: 50%;
+        right: -50%;
+    }
+    
+    .cart-overlay {
+        display: block;
+    }
+
+    .floating-cart-btn {
+        bottom: var(--space-lg);
+        right: var(--space-lg);
+        width: 55px;
+        height: 55px;
+    }
+
+    .floating-cart-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 768px) {
     .nav-menu {
         position: fixed;
         top: 70px;
@@ -1181,6 +1271,7 @@ body {
     .cart-container {
         width: 100%;
         right: -100%;
+        -webkit-overflow-scrolling: touch;
     }
     
     .cart-overlay {
@@ -1192,6 +1283,7 @@ body {
         right: var(--space-lg);
         width: 50px;
         height: 50px;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .floating-cart-btn svg {
@@ -1315,6 +1407,53 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-gold-dark);
+}
+
+/* ===== iOS SPECIFIC OPTIMIZATIONS ===== */
+@supports (-webkit-touch-callout: none) {
+    .floating-cart-btn {
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+    }
+    
+    .cart-container {
+        -webkit-overflow-scrolling: touch;
+        -webkit-transform: translateZ(0);
+    }
+    
+    body.cart-open {
+        -webkit-overflow-scrolling: touch;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* ===== ANDROID SPECIFIC OPTIMIZATIONS ===== */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .floating-cart-btn {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .cart-container {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+}
+
+/* ===== SAFE AREA INSETS FOR NOTCHED DEVICES ===== */
+@supports (padding: max(0px)) {
+    .floating-cart-btn {
+        bottom: max(var(--space-xl), env(safe-area-inset-bottom));
+        right: max(var(--space-xl), env(safe-area-inset-right));
+    }
+    
+    .cart-container {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
 }
 
 /* ===== ACCESSIBILITY ===== */

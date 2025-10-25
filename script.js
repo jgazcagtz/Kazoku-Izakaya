@@ -138,20 +138,43 @@ class KazokuIzakayaApp {
     }
 
     setupCartHandlers() {
-        // Cart toggle
+        // Cart toggle - Multiple event types for better mobile support
         const cartBtn = document.getElementById('floating-cart-btn');
         const cartCloseBtn = document.querySelector('.cart-close');
         
         if (cartBtn) {
+            // Primary click event
             cartBtn.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
+                console.log('Cart button clicked');
                 this.toggleCart();
+            });
+            
+            // Touch events for mobile
+            cartBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Cart button touched');
+                this.toggleCart();
+            });
+            
+            // Prevent double-tap zoom on mobile
+            cartBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
             });
         }
         
         if (cartCloseBtn) {
             cartCloseBtn.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
+                this.toggleCart();
+            });
+            
+            cartCloseBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 this.toggleCart();
             });
         }
@@ -659,23 +682,32 @@ class KazokuIzakayaApp {
         const cartContainer = document.getElementById('cart-container');
         const cartOverlay = document.getElementById('cart-overlay');
         
+        console.log('toggleCart called', { cartContainer, cartOverlay });
+        
         if (cartContainer) {
             const isOpen = cartContainer.classList.contains('open');
+            console.log('Cart is currently:', isOpen ? 'open' : 'closed');
             
             if (isOpen) {
                 // Close cart
                 cartContainer.classList.remove('open');
                 if (cartOverlay) cartOverlay.classList.remove('show');
                 document.body.style.overflow = '';
+                document.body.classList.remove('cart-open');
+                console.log('Cart closed');
             } else {
                 // Open cart
                 cartContainer.classList.add('open');
                 if (cartOverlay) cartOverlay.classList.add('show');
                 document.body.style.overflow = 'hidden';
+                document.body.classList.add('cart-open');
                 
                 // Update cart content when opening
                 this.updateCart();
+                console.log('Cart opened');
             }
+        } else {
+            console.error('Cart container not found');
         }
     }
 
@@ -957,6 +989,33 @@ let app;
 
 document.addEventListener('DOMContentLoaded', () => {
     app = new KazokuIzakayaApp();
+    
+    // Fallback cart button handler in case the main setup fails
+    const cartBtn = document.getElementById('floating-cart-btn');
+    if (cartBtn && !cartBtn.hasAttribute('data-listener-added')) {
+        cartBtn.setAttribute('data-listener-added', 'true');
+        cartBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Fallback cart button clicked');
+            if (app && app.toggleCart) {
+                app.toggleCart();
+            } else {
+                console.error('App not initialized or toggleCart method not available');
+            }
+        });
+        
+        cartBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Fallback cart button touched');
+            if (app && app.toggleCart) {
+                app.toggleCart();
+            } else {
+                console.error('App not initialized or toggleCart method not available');
+            }
+        });
+    }
 });
 
 // ===== PWA INSTALL PROMPT =====
