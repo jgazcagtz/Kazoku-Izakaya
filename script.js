@@ -557,57 +557,69 @@ class KazokuIzakayaApp {
     }
 
     updateCart() {
-        this.renderCartItems();
-        this.updateCartTotal();
         this.updateCartBadge();
-        this.updateWhatsAppLink();
-        this.updatePayPalForm();
         this.saveCartToStorage();
     }
 
-    renderCartItems() {
-        const cartItems = document.getElementById('cart-items');
-        const editCartItems = document.getElementById('edit-cart-items');
-        
-        if (!cartItems) return;
+    updatePaymentModal() {
+        this.renderOrderItems();
+        this.updateOrderTotals();
+        this.setupPaymentHandlers();
+    }
 
-        cartItems.innerHTML = '';
-        if (editCartItems) editCartItems.innerHTML = '';
+    renderOrderItems() {
+        const orderItems = document.getElementById('order-items');
+        if (!orderItems) return;
+
+        orderItems.innerHTML = '';
+
+        if (this.cart.length === 0) {
+            orderItems.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: var(--space-lg);">No hay productos en el carrito</p>';
+            return;
+        }
 
         this.cart.forEach((item, index) => {
-            const cartItem = document.createElement('div');
-            cartItem.className = 'cart-item';
-            cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <div class="cart-item-info">
-                    <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">$${item.price.toFixed(2)} c/u</div>
+            const orderItem = document.createElement('div');
+            orderItem.className = 'order-item';
+            orderItem.innerHTML = `
+                <div>
+                    <div class="order-item-name">${item.name}</div>
+                    <div class="order-item-quantity">Cantidad: ${item.quantity}</div>
                 </div>
-                <div class="cart-item-quantity">
-                    <button class="quantity-btn" onclick="app.updateCartItemQuantity(${index}, -1)">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="quantity-btn" onclick="app.updateCartItemQuantity(${index}, 1)">+</button>
-                </div>
+                <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
             `;
-            cartItems.appendChild(cartItem);
+            orderItems.appendChild(orderItem);
+        });
+    }
 
-            if (editCartItems) {
-                const editItem = document.createElement('div');
-                editItem.className = 'edit-cart-item';
-                editItem.innerHTML = `
-                    <div class="edit-item-info">
-                        <h4>${item.name}</h4>
-                        <p>$${item.price.toFixed(2)} x ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</p>
-                    </div>
-                    <div class="edit-item-actions">
-                        <button class="quantity-btn" onclick="app.updateCartItemQuantity(${index}, -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-btn" onclick="app.updateCartItemQuantity(${index}, 1)">+</button>
-                        <button class="remove-btn" onclick="app.removeCartItem(${index})">Eliminar</button>
-                    </div>
-                `;
-                editCartItems.appendChild(editItem);
-            }
+    updateOrderTotals() {
+        const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const tip = subtotal * 0.10; // 10% tip
+        const total = subtotal + tip;
+
+        const subtotalEl = document.getElementById('subtotal');
+        const tipAmountEl = document.getElementById('tip-amount');
+        const finalTotalEl = document.getElementById('final-total');
+
+        if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+        if (tipAmountEl) tipAmountEl.textContent = `$${tip.toFixed(2)}`;
+        if (finalTotalEl) finalTotalEl.textContent = `$${total.toFixed(2)}`;
+    }
+
+    setupPaymentHandlers() {
+        // Payment method change handler
+        const paymentRadios = document.querySelectorAll('input[name="payment-method"]');
+        const onlinePayment = document.getElementById('online-payment');
+        
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'online') {
+                    onlinePayment.style.display = 'block';
+                    this.updatePayPalForm();
+                } else {
+                    onlinePayment.style.display = 'none';
+                }
+            });
         });
     }
 
@@ -646,6 +658,75 @@ class KazokuIzakayaApp {
         this.cart = [];
         this.updateCart();
         this.showNotification('Carrito limpiado');
+    }
+
+    confirmOrder() {
+        // Validate form
+        const customerName = document.getElementById('customer-name');
+        const customerPhone = document.getElementById('customer-phone');
+        const deliveryAddress = document.getElementById('delivery-address');
+        
+        if (!customerName.value.trim()) {
+            this.showNotification('Por favor ingresa tu nombre completo', 'error');
+            customerName.focus();
+            return;
+        }
+        
+        if (!customerPhone.value.trim()) {
+            this.showNotification('Por favor ingresa tu teléfono', 'error');
+            customerPhone.focus();
+            return;
+        }
+        
+        if (!deliveryAddress.value.trim()) {
+            this.showNotification('Por favor ingresa tu dirección', 'error');
+            deliveryAddress.focus();
+            return;
+        }
+
+        if (this.cart.length === 0) {
+            this.showNotification('Tu carrito está vacío', 'error');
+            return;
+        }
+
+        // Get form data
+        const orderNotes = document.getElementById('order-notes').value;
+        const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+        
+        // Calculate totals
+        const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const tip = subtotal * 0.10;
+        const total = subtotal + tip;
+
+        // Create WhatsApp message
+        const message = `🍱 *NUEVO PEDIDO - KAZOKU IZAKAYA* 🍱\n\n` +
+            `👤 *Cliente:* ${customerName.value}\n` +
+            `📞 *Teléfono:* ${customerPhone.value}\n` +
+            `📍 *Dirección:* ${deliveryAddress.value}\n\n` +
+            `📋 *PEDIDO:*\n` +
+            `${this.cart.map(item => `• ${item.name} (${item.quantity}) - $${item.price} c/u`).join('\n')}\n\n` +
+            `💰 *RESUMEN:*\n` +
+            `Subtotal: $${subtotal.toFixed(2)}\n` +
+            `Propina (10%): $${tip.toFixed(2)}\n` +
+            `*TOTAL: $${total.toFixed(2)}*\n\n` +
+            `💳 *Método de pago:* ${paymentMethod === 'cash' ? 'Efectivo' : paymentMethod === 'online' ? 'Pago en línea' : 'Transferencia'}\n` +
+            `📝 *Notas:* ${orderNotes || 'Ninguna'}\n\n` +
+            `¡Gracias por elegirnos! 🙏`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/525533355687?text=${encodedMessage}`;
+        
+        // Open WhatsApp
+        window.open(whatsappUrl, '_blank');
+        
+        // Show success message
+        this.showNotification('¡Pedido enviado! Te contactaremos pronto', 'success');
+        
+        // Close modal
+        this.togglePaymentModal();
+        
+        // Clear cart
+        this.clearCart();
     }
 
     // ===== PAYMENT INTEGRATION =====
@@ -692,35 +773,29 @@ class KazokuIzakayaApp {
 
     // ===== MODAL MANAGEMENT =====
     toggleCart() {
-        const cartContainer = document.getElementById('cart-container');
-        const cartOverlay = document.getElementById('cart-overlay');
+        this.togglePaymentModal();
+    }
+
+    togglePaymentModal() {
+        const paymentModal = document.getElementById('payment-modal');
         
-        console.log('toggleCart called', { cartContainer, cartOverlay });
-        
-        if (cartContainer) {
-            const isOpen = cartContainer.classList.contains('open');
-            console.log('Cart is currently:', isOpen ? 'open' : 'closed');
+        if (paymentModal) {
+            const isOpen = paymentModal.classList.contains('show');
             
             if (isOpen) {
-                // Close cart
-                cartContainer.classList.remove('open');
-                if (cartOverlay) cartOverlay.classList.remove('show');
+                // Close modal
+                paymentModal.classList.remove('show');
                 document.body.style.overflow = '';
-                document.body.classList.remove('cart-open');
-                console.log('Cart closed');
+                document.body.classList.remove('modal-open');
             } else {
-                // Open cart
-                cartContainer.classList.add('open');
-                if (cartOverlay) cartOverlay.classList.add('show');
+                // Open modal
+                paymentModal.classList.add('show');
                 document.body.style.overflow = 'hidden';
-                document.body.classList.add('cart-open');
+                document.body.classList.add('modal-open');
                 
-                // Update cart content when opening
-                this.updateCart();
-                console.log('Cart opened');
+                // Update payment content when opening
+                this.updatePaymentModal();
             }
-        } else {
-            console.error('Cart container not found');
         }
     }
 
@@ -978,6 +1053,9 @@ class KazokuIzakayaApp {
 window.toggleCart = () => {
     if (app) app.toggleCart();
 };
+window.togglePaymentModal = () => {
+    if (app) app.togglePaymentModal();
+};
 window.toggleProductModal = () => {
     if (app) app.toggleProductModal();
 };
@@ -992,6 +1070,9 @@ window.clearCart = () => {
 };
 window.addProductToCart = () => {
     if (app) app.addProductToCart();
+};
+window.confirmOrder = () => {
+    if (app) app.confirmOrder();
 };
 window.scrollToSection = (sectionId) => {
     if (app) app.scrollToSection(sectionId);
