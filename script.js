@@ -140,10 +140,20 @@ class KazokuIzakayaApp {
     setupCartHandlers() {
         // Cart toggle
         const cartBtn = document.getElementById('floating-cart-btn');
-        const cartContainer = document.getElementById('cart-container');
+        const cartCloseBtn = document.querySelector('.cart-close');
         
-        if (cartBtn && cartContainer) {
-            cartBtn.addEventListener('click', () => this.toggleCart());
+        if (cartBtn) {
+            cartBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleCart();
+            });
+        }
+        
+        if (cartCloseBtn) {
+            cartCloseBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleCart();
+            });
         }
 
         // Payment method changes
@@ -472,17 +482,19 @@ class KazokuIzakayaApp {
         this.selectedProduct = { ...product, quantity };
         
         const modalContent = document.getElementById('product-modal-content');
-        modalContent.innerHTML = `
-            <div class="product-modal-info">
-                <img src="${product.image}" alt="${product.name}" class="modal-product-image">
-                <div class="modal-product-details">
-                    <h3>${product.name}</h3>
-                    <p class="modal-price">$${product.price.toFixed(2)}</p>
-                    <p class="modal-description">${product.includes}</p>
-                    <p class="modal-quantity">Cantidad: ${quantity}</p>
+        if (modalContent) {
+            modalContent.innerHTML = `
+                <div class="product-modal-info">
+                    <img src="${product.image}" alt="${product.name}" class="modal-product-image">
+                    <div class="modal-product-details">
+                        <h3>${product.name}</h3>
+                        <p class="modal-price">$${product.price.toFixed(2)}</p>
+                        <p class="modal-description">${product.includes}</p>
+                        <p class="modal-quantity">Cantidad: ${quantity}</p>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
         
         this.toggleProductModal();
     }
@@ -645,8 +657,25 @@ class KazokuIzakayaApp {
     // ===== MODAL MANAGEMENT =====
     toggleCart() {
         const cartContainer = document.getElementById('cart-container');
+        const cartOverlay = document.getElementById('cart-overlay');
+        
         if (cartContainer) {
-            cartContainer.classList.toggle('open');
+            const isOpen = cartContainer.classList.contains('open');
+            
+            if (isOpen) {
+                // Close cart
+                cartContainer.classList.remove('open');
+                if (cartOverlay) cartOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+            } else {
+                // Open cart
+                cartContainer.classList.add('open');
+                if (cartOverlay) cartOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                
+                // Update cart content when opening
+                this.updateCart();
+            }
         }
     }
 
@@ -901,13 +930,27 @@ class KazokuIzakayaApp {
 }
 
 // ===== GLOBAL FUNCTIONS FOR HTML ONCLICK =====
-window.toggleCart = () => app.toggleCart();
-window.toggleProductModal = () => app.toggleProductModal();
-window.toggleEditModal = () => app.toggleEditModal();
-window.toggleMapModal = () => app.toggleMapModal();
-window.clearCart = () => app.clearCart();
-window.addProductToCart = () => app.addProductToCart();
-window.scrollToSection = (sectionId) => app.scrollToSection(sectionId);
+window.toggleCart = () => {
+    if (app) app.toggleCart();
+};
+window.toggleProductModal = () => {
+    if (app) app.toggleProductModal();
+};
+window.toggleEditModal = () => {
+    if (app) app.toggleEditModal();
+};
+window.toggleMapModal = () => {
+    if (app) app.toggleMapModal();
+};
+window.clearCart = () => {
+    if (app) app.clearCart();
+};
+window.addProductToCart = () => {
+    if (app) app.addProductToCart();
+};
+window.scrollToSection = (sectionId) => {
+    if (app) app.scrollToSection(sectionId);
+};
 
 // ===== INITIALIZE APP =====
 let app;

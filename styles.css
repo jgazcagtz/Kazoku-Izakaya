@@ -671,7 +671,7 @@ body {
 .cart-container {
     position: fixed;
     top: 0;
-    right: -400px;
+    right: -100%;
     width: 400px;
     height: 100vh;
     background: var(--gradient-dark);
@@ -680,10 +680,30 @@ body {
     z-index: var(--z-modal);
     transition: right var(--transition-normal);
     overflow-y: auto;
+    box-shadow: -10px 0 30px var(--shadow-strong);
 }
 
 .cart-container.open {
     right: 0;
+}
+
+/* Cart overlay for mobile */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: calc(var(--z-modal) - 1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.cart-overlay.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 .cart-header {
@@ -737,6 +757,24 @@ body {
     border-radius: var(--radius-lg);
     margin-bottom: var(--space-md);
     backdrop-filter: blur(10px);
+    transition: all var(--transition-normal);
+    animation: slideInRight 0.3s ease-out;
+}
+
+.cart-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateX(5px);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .cart-item img {
@@ -1144,6 +1182,10 @@ body {
         width: 100%;
         right: -100%;
     }
+    
+    .cart-overlay {
+        display: block;
+    }
 
     .floating-cart-btn {
         bottom: var(--space-lg);
@@ -1203,6 +1245,22 @@ body {
     .footer-content {
         flex-direction: column;
         text-align: center;
+    }
+
+    .cart-container {
+        width: 100vw;
+        right: -100vw;
+    }
+
+    .notification {
+        top: var(--space-md);
+        right: var(--space-md);
+        left: var(--space-md);
+        transform: translateY(-100%);
+    }
+
+    .notification.show {
+        transform: translateY(0);
     }
 }
 
@@ -1268,12 +1326,62 @@ body {
     }
 }
 
+/* ===== NOTIFICATIONS ===== */
+.notification {
+    position: fixed;
+    top: var(--space-xl);
+    right: var(--space-xl);
+    background: var(--gradient-dark);
+    color: var(--text-primary);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    z-index: var(--z-tooltip);
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    box-shadow: 0 10px 25px var(--shadow-strong);
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.notification-content button {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    margin-left: var(--space-sm);
+}
+
+.notification-success {
+    border-left: 4px solid #4caf50;
+}
+
+.notification-error {
+    border-left: 4px solid #f44336;
+}
+
+.notification-info {
+    border-left: 4px solid var(--accent-gold);
+}
+
 /* ===== PRINT STYLES ===== */
 @media print {
     .navbar,
     .floating-cart-btn,
     .cart-container,
-    .modal {
+    .modal,
+    .notification {
         display: none !important;
     }
 
