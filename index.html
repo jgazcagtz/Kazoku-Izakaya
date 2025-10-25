@@ -2,1035 +2,294 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kazoku Izakaya</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Kazoku Izakaya - Auténtica Cocina Japonesa</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kazoku Izakaya">
+    <meta name="description" content="Auténtica cocina japonesa en Guadalajara. Experiencia culinaria única con ingredientes premium y técnicas tradicionales.">
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #000000;
-            --secondary-color: #d4af37;
-            --accent-color: #ffc0cb;
-            --background-color: #ffffff;
-            --text-color: #333;
-            --white: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-             font-family: "RocknRoll One", sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: var(--background-color);
-            color: var(--primary-color);
-            overflow-x: hidden;
-        }
-
-        @keyframes slideInDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes bounceIn {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-20px);
-            }
-            60% {
-                transform: translateY(-10px);
-            }
-        }
-
-        header {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--white);
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
-            box-shadow: 0 2px 4px var(--shadow-color);
-            animation: slideInDown 0.7s ease-out;
-        }
-
-        header img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-            animation: bounceIn 1s ease;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 2em;
-            font-weight: 700;
-            color: var(--secondary-color);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        p {
-            margin: 0;
-            font-size: 1em;
-            color: var(--primary-color);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        main {
-            padding: 20px;
-            padding-bottom: 80px;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .intro-section {
-            text-align: center;
-            background-image: url('https://i.imgur.com/vLBB4FM.png');
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            padding: 30px;
-            margin-bottom: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            position: relative;
-            font-weight: 700;
-            animation: fadeInUp 1s ease-in-out;
-        }
-
-        .intro-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            z-index: 1;
-        }
-
-        .intro-section p {
-            font-size: 1.2em;
-            margin: 10px 0;
-            position: relative;
-            z-index: 2;
-            color: var(--white);
-        }
-
-        h2 {
-            text-align: center;
-            color: var(--secondary-color);
-            font-weight: 700;
-            margin: 30px 0;
-            font-size: 1.6em;
-            position: relative;
-            animation: slideInFromLeft 1s ease-out forwards, fadeIn 2s ease-in-out;
-        }
-
-        @keyframes slideInFromLeft {
-            0% {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        .menu-title-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 12px 20px;
-            border-radius: 50px;
-            margin: 20px auto;
-            width: fit-content;
-            position: relative;
-            font-size: 1.2em;
-            cursor: pointer;
-            animation: bounceIn 1s 3s;
-        }
-
-        .catalog-btn {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
-        }
-
-        .catalog-btn:hover {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-        }
-
-        .category-menu {
-            display: none;
-            position: absolute;
-            background-color: var(--white);
-            border: 1px solid var(--secondary-color);
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 220px;
-        }
-
-        .menu-title-container:hover .category-menu,
-        .menu-title-container:focus-within .category-menu {
-            display: block;
-        }
-
-        .category-menu a {
-            display: block;
-            padding: 12px 20px;
-            color: var(--secondary-color);
-            text-decoration: none;
-            font-weight: 700;
-            text-align: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .category-menu a:hover {
-            background-color: var(--secondary-color);
-            color: var(--white);
-        }
-
-        .horizontal-product-grid {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding: 10px 0;
-        }
-
-        .horizontal-product-item {
-            text-align: left;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: var(--white);
-            box-shadow: 0 6px 12px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-width: 280px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            animation: fadeInUp 1s ease-in-out;
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .horizontal-product-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .horizontal-product-item img {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-right: 20px;
-        }
-
-        .horizontal-product-item h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.2em;
-            color: var(--text-color);
-            font-weight: 700;
-        }
-
-        .horizontal-product-item p {
-            margin: 5px 0;
-            color: #555;
-        }
-
-        .product-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .product-item {
-            display: flex;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: var(--white);
-            box-shadow: 0 6px 12px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            align-items: center;
-            animation: fadeInUp 1s ease-in-out;
-        }
-
-        .product-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .product-item img {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-right: 20px;
-        }
-
-        .product-item-content {
-            flex-grow: 1;
-        }
-
-        .product-item h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: var(--text-color);
-        }
-
-        .product-item p {
-            margin: 8px 0;
-            color: #555;
-        }
-
-        .choose-btn {
-            padding: 8px 15px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            text-decoration: none;
-        }
-
-        .choose-btn:hover {
-            background-color: var(--accent-color);
-            transform: scale(1.1);
-        }
-
-        select {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            margin: 10px 0;
-            border: 1px solid var(--secondary-color);
-            border-radius: 5px;
-            background-color: var(--white);
-            color: var(--text-color);
-            font-size: 1em;
-            font-family: 'Montserrat', sans-serif;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 5px rgba(255, 221, 0, 0.5);
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: var(--primary-color);
-            color: var(--white);
-            width: 100%;
-            bottom: 0;
-            font-size: 0.9em;
-        }
-
-        #cart {
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 4px 8px var(--shadow-color);
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            z-index: 1000;
-            width: 90%;
-            max-width: 350px;
-            display: none;
-            overflow-y: auto;
-            max-height: 80vh;
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        #cart h3 {
-            margin-bottom: 20px;
-        }
-
-        #cart-items {
-            margin-bottom: 15px;
-        }
-
-        #cart-total {
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        #whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--white);
-            text-decoration: none;
-            font-size: 1em;
-            padding: 10px 20px;
-            background-color: var(--secondary-color);
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        #whatsapp-btn img {
-            width: 24px;
-            height: 24px;
-        }
-
-        #whatsapp-btn:hover {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-        }
-
-        #refresh-btn {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #e3240b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-
-        #refresh-btn:hover {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-        }
-
-        #cart-btn {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background-color: var(--accent-color);
-            color: var(--white);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.3em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            z-index: 1001;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            animation: bounceIn 0.5s ease-out;
-        }
-
-        #cart-btn:hover {
-            background-color: var(--white);
-            color: var (--secondary-color);
-            transform: scale(1.1);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1002;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: var(--white);
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 12px;
-            width: 95%;
-            max-width: 400px;
-            position: relative;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: var(--text-color);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.5em;
-            color: var(--text-color);
-        }
-
-        .modal-body {
-            margin-top: 15px;
-        }
-
-        .modal-body p {
-            margin: 8px 0;
-            color: #555;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        .edit-btn {
-            padding: 10px 20px;
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-
-        .edit-btn:hover {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-        }
-
-        .quantity-btn {
-            border: none;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 5px;
-            border-radius: 50%;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .quantity-btn:hover {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-            transform: scale(1.1);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--background-color);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: var(--primary-color);
-            border-radius: 10px;
-            border: 3px solid var(--background-color);
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.6em;
-            }
-
-            .product-item img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .product-item h3 {
-                font-size: 0.9em;
-            }
-
-            .choose-btn {
-                padding: 8px 12px;
-                font-size: 0.9em;
-            }
-
-            select {
-                font-size: 0.9em;
-            }
-
-            #cart-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2em;
-            }
-
-            .modal-content {
-                width: 90%;
-            }
-
-            #refresh-btn {
-                padding: 8px 12px;
-                font-size: 0.9em;
-            }
-
-            .menu-title-container {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 12px;
-                border-radius: 5px;
-            }
-
-            .category-menu {
-                width: 100%;
-                top: auto;
-                left: 0;
-                transform: none;
-                position: static;
-                box-shadow: none;
-            }
-
-            .horizontal-product-item {
-                min-width: 250px;
-            }
-
-            .horizontal-product-item img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .horizontal-product-item h3 {
-                font-size: 1em;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://i.imgur.com">
+    
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <img src="https://i.imgur.com/m6xHJP8.png" alt="Logo">
-        <h1>AUTÉNTICA COCINA JAPONESA</h1>
-        <p>Guadalajara, Jalisco, México</p>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="https://i.imgur.com/m6xHJP8.png" alt="Kazoku Izakaya" class="loading-img">
+            </div>
+            <div class="loading-text">Kazoku Izakaya</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://i.imgur.com/m6xHJP8.png" alt="Kazoku Izakaya" class="nav-logo-img">
+                <span class="nav-title">Kazoku Izakaya</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Inicio</a>
+                <a href="#menu" class="nav-link">Menú</a>
+                <a href="#about" class="nav-link">Nosotros</a>
+                <a href="#contact" class="nav-link">Contacto</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero-section">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="https://i.imgur.com/m6xHJP8.png" alt="Kazoku Izakaya" class="hero-logo-img">
+            </div>
+            <h1 class="hero-title">AUTÉNTICA COCINA JAPONESA</h1>
+            <p class="hero-subtitle">Guadalajara, Jalisco, México</p>
+            <div class="hero-cta">
+                <button class="btn-primary" onclick="scrollToSection('menu')">
+                    <span>Explorar Menú</span>
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
     </header>
 
-    <main>
-        <!-- Intro Section -->
-        <div class="intro-section">
-            <p>Bienvenidos a Kazoku Izakaya</p> 
-            <p>Una experiencia culinaria única que fusiona tradición japonesa con sofisticación moderna.</p>
-            <p>Ofrecemos una selección exclusiva de platillos de alta cocina japonesa.</p>
-            <p>¡Descubre nuestro menú y déjate sorprender por cada sabor!</p>
+    <!-- Intro Section -->
+    <section class="intro-section" id="about">
+        <div class="container">
+            <div class="intro-content">
+                <h2 class="section-title">Bienvenidos a Kazoku Izakaya</h2>
+                <p class="intro-text">Una experiencia culinaria única que fusiona tradición japonesa con sofisticación moderna.</p>
+                <p class="intro-text">Ofrecemos una selección exclusiva de platillos de alta cocina japonesa.</p>
+                <p class="intro-text">¡Descubre nuestro menú y déjate sorprender por cada sabor!</p>
+            </div>
         </div>
+    </section>
 
-        <!-- Button to Open the Map Modal -->
-        <button onclick="toggleMapModal()" class="choose-btn">Ver Ubicación en el Mapa</button>
+    <!-- Location Section -->
+    <section class="location-section">
+        <div class="container">
+            <button class="location-btn" onclick="toggleMapModal()">
+                <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>Ver Ubicación</span>
+            </button>
+        </div>
+    </section>
 
-        <!-- Map Modal -->
-        <div id="map-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Ubicación</h2>
-                    <span class="close" onclick="toggleMapModal()">&times;</span>
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <!-- Menu Navigation -->
+            <div class="menu-nav">
+                <button class="menu-nav-btn active" data-category="favorites">⭐ Favoritos</button>
+                <button class="menu-nav-btn" data-category="soups">🍲 Sopas</button>
+                <button class="menu-nav-btn" data-category="mains">🍱 Principales</button>
+                <button class="menu-nav-btn" data-category="specialties">🍶 Especialidades</button>
+                <button class="menu-nav-btn" data-category="desserts">🍨 Postres</button>
+            </div>
+
+            <!-- Menu Content -->
+            <div class="menu-content">
+                <!-- Favorites Section -->
+                <div class="menu-category active" id="favorites">
+                    <h3 class="category-title">Nuestros Favoritos</h3>
+                    <div class="product-grid horizontal" id="favorites-grid"></div>
                 </div>
-                <div class="modal-body">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1078.191607270965!2d-103.38890196640078!3d20.675396094284718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ae6e15304edd%3A0x574ab2db0bf56397!2sDiag.%20Golfo%20de%20Cort%C3%A9s%202875%20B%2C%20Vallarta%20Nte.%2C%2044690%20Guadalajara%2C%20Jal.!5e0!3m2!1sen!2smx!4v1723876481643!5m2!1sen!2smx" 
-                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                <!-- Other Categories -->
+                <div class="menu-category" id="soups">
+                    <h3 class="category-title">Sopas</h3>
+                    <div class="product-grid" id="soups-grid"></div>
+                </div>
+
+                <div class="menu-category" id="mains">
+                    <h3 class="category-title">Platos Principales</h3>
+                    <div class="product-grid" id="mains-grid"></div>
+                </div>
+
+                <div class="menu-category" id="specialties">
+                    <h3 class="category-title">Especialidades</h3>
+                    <div class="product-grid" id="specialties-grid"></div>
+                </div>
+
+                <div class="menu-category" id="desserts">
+                    <h3 class="category-title">Postres</h3>
+                    <div class="product-grid" id="desserts-grid"></div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div id="cart">
-            <h3>🛒 Carrito</h3>
-            <div id="cart-items"></div>
-            <p id="cart-total">Total: $0.00</p>
-            <p><button id="refresh-btn" onclick="window.clearCart()">🗑️ Borrar Carrito</button></p><br>
-            <p>Pagar con PayPal:</p><br>
-            <div id="paypal-form"></div><br>
-            <div>
-               <label><input type="radio" name="payment-method" value="en línea" onchange="window.updatePaymentMethod(this.value)" checked> En línea</label><br> 
-              
-              <label><input type="radio" name="payment-method" value="efectivo" onchange="window.updatePaymentMethod(this.value)"> Efectivo</label><br>
-                
-                <label><input type="radio" name="payment-method" value="Transferencia" onchange="window.updatePaymentMethod(this.value)"> Transferencia</label>
-            </div><br>
-            <div>
-                <label for="delivery-address">Dirección de Entrega:</label><br>
-                <input type="text" id="delivery-address" placeholder="Escribe tu dirección"><br><br>
-                <label for="order-notes">Notas:</label><br>
-                <textarea id="order-notes" placeholder="Añadir notas adicionales"></textarea><br><br>
+    <!-- Cart Section -->
+    <div class="cart-container" id="cart-container">
+        <div class="cart-header">
+            <h3 class="cart-title">🛒 Carrito</h3>
+            <button class="cart-close" onclick="toggleCart()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-content">
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-total" id="cart-total">Total: $0.00</div>
+            <div class="cart-actions">
+                <button class="btn-secondary" onclick="clearCart()">🗑️ Limpiar</button>
+                <button class="btn-primary" onclick="toggleEditModal()">✏️ Editar</button>
             </div>
-            <p><a id="whatsapp-btn" href="#" target="_blank" style="display: none;"><br>
-               <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-                Confirmar pedido - Whatsapp
-            </a><p><br>
-            <button class="edit-btn" onclick="window.toggleModal()">Editar Carrito</button>
-        </div>
-        <button id="cart-btn" onclick="window.toggleCart()">🛒</button>
-
-        <!-- Favoritos Section -->
-        <div class="menu-title-container">
-            <h2>⭐ Favoritos</h2>
-        </div>
-        <div id="menu-horizontal" class="horizontal-product-grid"></div>
-        
-        <div class="menu-title-container">
-            <h2>🍲 Sopas</h2>
-            <div class="category-menu">
-                <a href="#" onclick="window.filterProducts('Sopas')">Sopas</a>
-            </div>
-        </div>
-        <div id="menu-vertical-sopas" class="product-grid"></div>
-
-        <div class="menu-title-container">
-            <h2>🍱 Platos Principales</h2>
-        </div>
-        <div id="menu-vertical-principales" class="product-grid"></div>
-
-        <div class="menu-title-container">
-            <h2>🍶 Especialidades</h2>
-        </div>
-        <div id="menu-vertical-especialidades" class="product-grid"></div>
-
-        <div class="menu-title-container">
-            <h2>🍨 Postres</h2>
-        </div>
-        <div id="menu-vertical-postres" class="product-grid"></div>
-
-        <div id="edit-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Editar Carrito</h2>
-                    <span class="close" onclick="window.toggleModal()">&times;</span>
-                </div>
-                <div class="modal-body" id="edit-cart-items"></div>
-                <div class="modal-footer">
-                    <button class="edit-btn" onclick="window.toggleModal()">Cerrar</button>
+            <div class="payment-section">
+                <h4>Método de Pago</h4>
+                <div class="payment-options">
+                    <label class="payment-option">
+                        <input type="radio" name="payment-method" value="online" checked>
+                        <span>💳 En línea</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment-method" value="cash">
+                        <span>💵 Efectivo</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment-method" value="transfer">
+                        <span>🏦 Transferencia</span>
+                    </label>
                 </div>
             </div>
+            <div class="delivery-section">
+                <label for="delivery-address">Dirección de Entrega:</label>
+                <input type="text" id="delivery-address" placeholder="Escribe tu dirección">
+                <label for="order-notes">Notas:</label>
+                <textarea id="order-notes" placeholder="Añadir notas adicionales"></textarea>
+            </div>
+            <div class="checkout-section">
+                <div id="paypal-form"></div>
+                <a id="whatsapp-btn" href="#" target="_blank" class="whatsapp-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    </svg>
+                    <span>Confirmar por WhatsApp</span>
+                </a>
+            </div>
         </div>
+    </div>
 
-        <!-- Product Modal -->
-        <div id="product-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Producto Seleccionado</h2>
-                    <span class="close" onclick="toggleProductModal()">&times;</span>
+    <!-- Floating Cart Button -->
+    <button class="floating-cart-btn" id="floating-cart-btn" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"/>
+        </svg>
+        <span class="cart-badge" id="cart-badge">0</span>
+    </button>
+
+    <!-- Modals -->
+    <!-- Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalles del Producto</h2>
+                <button class="modal-close" onclick="toggleProductModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="product-modal-content"></div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="addProductToCart()">Añadir al Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Cart Modal -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Carrito</h2>
+                <button class="modal-close" onclick="toggleEditModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="edit-cart-items"></div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="toggleEditModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Modal -->
+    <div class="modal" id="map-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ubicación</h2>
+                <button class="modal-close" onclick="toggleMapModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1078.191607270965!2d-103.38890196640078!3d20.675396094284718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ae6e15304edd%3A0x574ab2db0bf56397!2sDiag.%20Golfo%20de%20Cort%C3%A9s%202875%20B%2C%20Vallarta%20Nte.%2C%2044690%20Guadalajara%2C%20Jal.!5e0!3m2!1sen!2smx!4v1723876481643!5m2!1sen!2smx" 
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://i.imgur.com/m6xHJP8.png" alt="Kazoku Izakaya" class="footer-logo-img">
+                    <h4>Kazoku Izakaya</h4>
                 </div>
-                <div id="product-modal-content" class="modal-body"></div>
-                <div class="modal-footer">
-                    <button class="edit-btn" onclick="addProductToCart()">Añadir al Carrito</button>
+                <div class="footer-info">
+                    <p>© 2024 Kazoku Izakaya. Todos los derechos reservados.</p>
+                    <p>Auténtica cocina japonesa en Guadalajara</p>
                 </div>
             </div>
         </div>
-      
-    </main>
-    <footer style="color: white !important; background-color: var(--primary-color);">
-        <h4>Kazoku Izakaya ® 2024</h4>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const products = [
-                { id: 1, name: "Edamame Trufado", price: 150, includes: "Edamame al vapor con sal marina y aceite de trufa negra.", category: "Entradas", image: "https://i.imgur.com/DSOwAfw.png" },
-                { id: 2, name: "Tartar de Atún Bluefin", price: 350, includes: "Atún Bluefin finamente picado con aguacate, tobiko y aderezo de ponzu y yuzu.", category: "Entradas", image: "https://i.imgur.com/Jhf3oO6.png" },
-                { id: 3, name: "Tempura de Langosta", price: 450, includes: "Langosta fresca frita en una ligera tempura con salsa de soya dulce.", category: "Entradas", image: "https://i.imgur.com/eusN3Bt.png" },
-                { id: 4, name: "Tataki de Wagyu", price: 500, includes: "Finas láminas de wagyu sellado, acompañadas de salsa ponzu y jengibre fresco.", category: "Entradas", image: "https://i.imgur.com/wc2orxe.png" },
-                { id: 5, name: "Sashimi de Hamachi", price: 400, includes: "Láminas de hamachi fresco servidas con rodajas de jalapeño, cilantro y ponzu.", category: "Entradas", image: "https://i.imgur.com/aF9yIXx.png" },
-                { id: 6, name: "Sopa Miso con Trufa Blanca", price: 200, includes: "Clásica sopa miso con un toque de trufa blanca y setas shiitake.", category: "Sopas", image: "https://i.imgur.com/LBrhsUp.png" },
-                { id: 7, name: "Ramen de Pato", price: 350, includes: "Caldo de pato confitado, fideos ramen caseros, huevo pochado y nori.", category: "Sopas", image: "https://i.imgur.com/fYGAy63.png" },
-                { id: 8, name: "Dobin Mushi", price: 300, includes: "Sopa al vapor con mariscos frescos, servida en una tetera de cerámica.", category: "Sopas", image: "https://i.imgur.com/KDJ4vmf.png" },
-                { id: 9, name: "Sopa de Almejas en Dashi", price: 280, includes: "Almejas frescas cocidas en un caldo de dashi y sake, con cebolleta y jengibre.", category: "Sopas", image: "https://i.imgur.com/cJRM3XV.png" },
-                { id: 10, name: "Sopa de Erizo de Mar", price: 380, includes: "Crema de erizo de mar con un toque de yuzu y alga nori.", category: "Sopas", image: "https://i.imgur.com/dYG06Vn.png" },
-                { id: 11, name: "Sukiyaki de Wagyu A5", price: 1200, includes: "Lonjas de wagyu A5 cocidas en mesa en una olla de hierro, con vegetales frescos y tofu.", category: "Platos Principales", image: "https://i.imgur.com/hTljGud.png" },
-                { id: 12, name: "Nigiri Omakase", price: 850, includes: "Selección de 10 piezas de nigiri de temporada, elegidas por el chef.", category: "Platos Principales", image: "https://i.imgur.com/DSOwAfw.png" },
-                { id: 13, name: "Chirashi Don", price: 700, includes: "Arroz de sushi cubierto con una selección premium de mariscos frescos.", category: "Platos Principales", image: "https://i.imgur.com/Jhf3oO6.png" },
-                { id: 14, name: "Katsuo Tataki con Salsa Ponzu", price: 600, includes: "Bonito ligeramente asado, servido con salsa ponzu y ensalada de daikon.", category: "Platos Principales", image: "https://i.imgur.com/eusN3Bt.png" },
-                { id: 15, name: "Unagi Kabayaki", price: 550, includes: "Anguila asada con salsa dulce de soya, servida con arroz al vapor.", category: "Platos Principales", image: "https://i.imgur.com/wc2orxe.png" },
-                { id: 16, name: "Robata de Mariscos", price: 750, includes: "Selección de mariscos frescos a la parrilla, servidos con salsa de miso y limón.", category: "Platos Principales", image: "https://i.imgur.com/aF9yIXx.png" },
-                { id: 17, name: "Salmón Teriyaki con Yuzu", price: 650, includes: "Filete de salmón a la parrilla con una salsa teriyaki de yuzu, acompañado de espárragos.", category: "Platos Principales", image: "https://i.imgur.com/LBrhsUp.png" },
-                { id: 18, name: "Pollo Karaage con Salsa de Sésamo", price: 450, includes: "Muslos de pollo crujientes, marinados y fritos, servidos con una salsa de sésamo y jengibre.", category: "Platos Principales", image: "https://i.imgur.com/fYGAy63.png" },
-                { id: 19, name: "Tonkatsu de Iberico", price: 550, includes: "Chuleta de cerdo ibérico empanizada, servida con repollo y salsa tonkatsu casera.", category: "Platos Principales", image: "https://i.imgur.com/KDJ4vmf.png" },
-                { id: 20, name: "Shabu-Shabu de Mariscos", price: 900, includes: "Caldo de kombu y sake para cocinar mariscos frescos en la mesa.", category: "Platos Principales", image: "https://i.imgur.com/cJRM3XV.png" },
-                { id: 21, name: "Fugu Sashimi", price: 1500, includes: "Sashimi de pez globo preparado por un chef con licencia, acompañado de salsa ponzu.", category: "Especialidades", image: "https://i.imgur.com/dYG06Vn.png" },
-                { id: 22, name: "Tempura de Erizo de Mar", price: 800, includes: "Erizo de mar fresco envuelto en alga y frito en tempura, servido con salsa tentsuyu.", category: "Especialidades", image: "https://i.imgur.com/hTljGud.png" },
-                { id: 23, name: "Takoyaki de Pulpo de Profundidad", price: 450, includes: "Bolas de masa frita rellenas de pulpo capturado en aguas profundas, con salsa de okonomiyaki.", category: "Especialidades", image: "https://i.imgur.com/DSOwAfw.png" },
-                { id: 24, name: "Omakase Chef's Table", price: 2500, includes: "Experiencia de degustación de 12 tiempos, personalizada por el chef.", category: "Especialidades", image: "https://i.imgur.com/Jhf3oO6.png" },
-                { id: 25, name: "Matsusaka Beef Teppanyaki", price: 1800, includes: "Filete de Matsusaka cocinado al estilo teppanyaki, acompañado de vegetales de temporada.", category: "Especialidades", image: "https://i.imgur.com/eusN3Bt.png" },
-                { id: 26, name: "Sushi Incrustado con Oro", price: 1000, includes: "Nigiri de atún bluefin cubierto con una hoja de oro comestible y caviar.", category: "Especialidades", image: "https://i.imgur.com/wc2orxe.png" },
-                { id: 27, name: "King Crab Gratinado con Miso", price: 1200, includes: "Cangrejo real gratinado con una mezcla de miso blanco y queso gruyere.", category: "Especialidades", image: "https://i.imgur.com/aF9yIXx.png" },
-                { id: 28, name: "Toro Tartare con Caviar Oscietra", price: 1300, includes: "Tartar de ventresca de atún acompañado de caviar Oscietra y hojas de shiso.", category: "Especialidades", image: "https://i.imgur.com/LBrhsUp.png" },
-                { id: 29, name: "Ikura Don", price: 850, includes: "Bol de arroz con huevas de salmón frescas, servidas con salsa de soya y wasabi.", category: "Especialidades", image: "https://i.imgur.com/fYGAy63.png" },
-                { id: 30, name: "Yakiniku de Wagyu", price: 1100, includes: "Láminas de wagyu A5 cocidas en una parrilla de mesa, acompañadas de salsas caseras.", category: "Especialidades", image: "https://i.imgur.com/KDJ4vmf.png" },
-                { id: 31, name: "Matcha Tiramisu", price: 250, includes: "Capas de bizcocho y mascarpone infusionado con matcha, espolvoreado con cacao japonés.", category: "Postres", image: "https://i.imgur.com/cJRM3XV.png" },
-                { id: 32, name: "Mochi de Sésamo Negro", price: 200, includes: "Tradicional mochi relleno de pasta de sésamo negro, servido con una bola de helado de vainilla.", category: "Postres", image: "https://i.imgur.com/dYG06Vn.png" },
-                { id: 33, name: "Helado de Wasabi y Yuzu", price: 180, includes: "Helado artesanal con un toque de wasabi fresco y cítricos yuzu.", category: "Postres", image: "https://i.imgur.com/hTljGud.png" },
-                { id: 34, name: "Crema Catalana de Sake", price: 220, includes: "Versión japonesa de la crema catalana, infusionada con sake y servida con una capa crujiente de azúcar.", category: "Postres", image: "https://i.imgur.com/DSOwAfw.png" },
-                { id: 35, name: "Tarta de Frutas con Gelatina de Sakura", price: 280, includes: "Tarta de frutas frescas con una gelatina de flor de cerezo, servida con crema batida.", category: "Postres", image: "https://i.imgur.com/Jhf3oO6.png" },
-                { id: 36, name: "Cheesecake de Tofu y Miso", price: 260, includes: "Cheesecake ligero de tofu con un toque de miso dulce, servido con coulis de frambuesa.", category: "Postres", image: "https://i.imgur.com/eusN3Bt.png" },
-                { id: 37, name: "Parfait de Matcha y Azuki", price: 300, includes: "Parfait de matcha con capas de helado de azuki, nata montada y crujientes de arroz.", category: "Postres", image: "https://i.imgur.com/wc2orxe.png" },
-                { id: 38, name: "Pudding de Kabocha", price: 240, includes: "Pudding de calabaza japonesa con caramelo de soya y crema de jengibre.", category: "Postres", image: "https://i.imgur.com/aF9yIXx.png" },
-                { id: 39, name: "Soufflé de Yuzu y Chocolate Blanco", price: 320, includes: "Soufflé ligero con notas de yuzu y un centro de chocolate blanco derretido.", category: "Postres", image: "https://i.imgur.com/LBrhsUp.png" },
-                { id: 40, name: "Daifuku de Fresas y Crema", price: 280, includes: "Mochi suave relleno de fresas frescas y crema batida, servido con salsa de frambuesa.", category: "Postres", image: "https://i.imgur.com/fYGAy63.png" }
-            ];
-
-            let cart = [];
-            let total = 0;
-            let selectedProduct = null;
-            let selectedPaymentMethod = "efectivo"; // Default payment method
-            let filteredProducts = [...products]; // Create a copy of products to use in filtering
-
-            window.updatePaymentMethod = function(method) {
-                selectedPaymentMethod = method;
-                window.updateCart();
-            }
-
-            function createProductElement(product, layout = 'vertical') {
-                const productItem = document.createElement('div');
-                productItem.classList.add(layout === 'horizontal' ? 'horizontal-product-item' : 'product-item');
-                productItem.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
-                    <div class="product-item-content">
-                        <h3>${product.name}</h3>
-                        <p>$${product.price.toFixed(2)}</p>
-                        <p>${product.includes}</p>
-                        <select id="quantity-${layout}-${product.id}">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                        <button class="choose-btn" data-product-id="${product.id}" onclick="window.showProductModal(${product.id}, '${layout}')">Elegir</button>
-                    </div>`;
-                return productItem;
-            }
-
-            function displayProducts(productsToDisplay, layout = 'vertical', containerId) {
-                const menu = document.getElementById(containerId);
-                menu.innerHTML = '';
-                productsToDisplay.forEach((product) => {
-                    menu.appendChild(createProductElement(product, layout));
-                });
-            }
-
-            window.showProductModal = function(productId, layout = 'vertical') {
-                const product = products.find(p => p.id === productId);
-                const quantitySelect = document.getElementById(`quantity-${layout}-${productId}`);
-                const quantity = parseInt(quantitySelect.value);
-                selectedProduct = { ...product, quantity };
-
-                const modalContent = document.getElementById('product-modal-content');
-                modalContent.innerHTML = `
-                    <img src="${selectedProduct.image}" alt="${selectedProduct.name}" style="width: 100px; height: 100px; border-radius: 10px; object-fit: cover;">
-                    <h3>${selectedProduct.name}</h3>
-                    <p>Precio: $${selectedProduct.price.toFixed(2)}</p>
-                    <p>${selectedProduct.includes}</p>
-                    <p>Cantidad: ${selectedProduct.quantity}</p>
-                `;
-                toggleProductModal();
-            };
-
-            window.addProductToCart = function() {
-                const existingProduct = cart.find(item => item.name === selectedProduct.name);
-
-                if (existingProduct) {
-                    existingProduct.quantity += selectedProduct.quantity;
-                } else {
-                    cart.push({ name: selectedProduct.name, price: selectedProduct.price, quantity: selectedProduct.quantity });
-                }
-
-                window.updateCart();
-                toggleProductModal();
-                alert(`Producto agregado al carrito: ${selectedProduct.name} x ${selectedProduct.quantity}`);
-            };
-
-            window.updateCart = function() {
-                const cartItemsSection = document.getElementById('cart-items');
-                const cartTotal = document.getElementById('cart-total');
-                const paypalForm = document.getElementById('paypal-form');
-                const whatsappBtn = document.getElementById('whatsapp-btn');
-                const editCartItems = document.getElementById('edit-cart-items');
-
-                cartItemsSection.innerHTML = '';
-                editCartItems.innerHTML = '';
-                total = 0;
-
-                cart.forEach((item, index) => {
-                    cartItemsSection.innerHTML += `<p>${item.name} - $${item.price} x ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</p>`;
-                    editCartItems.innerHTML += 
-                        `<p>
-                            ${item.name} - $${item.price} x 
-                            <button class="quantity-btn" onclick="window.updateCartItemQuantity(${index}, -1)">-</button>
-                            ${item.quantity}
-                            <button class="quantity-btn" onclick="window.updateCartItemQuantity(${index}, 1)">+</button>
-                            = $${(item.price * item.quantity).toFixed(2)}
-                            <button onclick="window.removeCartItem(${index})">Eliminar</button>
-                        </p>`;
-                    total += item.price * item.quantity;
-                });
-
-                cartTotal.textContent = `Total: $${total.toFixed(2)}`;
-                updatePayPalForm();
-                updateWhatsAppLink();
-            }
-
-            window.updateCartItemQuantity = function(index, change) {
-                cart[index].quantity += change;
-                if (cart[index].quantity <= 0) {
-                    cart[index].quantity = 1;
-                }
-                window.updateCart();
-            }
-
-            window.removeCartItem = function(index) {
-                cart.splice(index, 1);
-                window.updateCart();
-            }
-
-            function updatePayPalForm() {
-                const paypalForm = document.getElementById('paypal-form');
-                paypalForm.innerHTML = 
-                    `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                        <input type="hidden" name="cmd" value="_xclick" />
-                        <input type="hidden" name="business" value="gascagtz@gmail.com" />
-                        <input type="hidden" name="currency_code" value="MXN" />
-                        <input type="hidden" name="amount" value="${total.toFixed(2)}" />
-                        <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.quantity})`).join(', ')}" />
-                        <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-44px.png" border="0" name="submit" title="Pay with PayPal" alt="PayPal - The safer, easier way to pay online!" />
-                    </form>`;
-            }
-
-            function updateWhatsAppLink() {
-                const whatsappBtn = document.getElementById('whatsapp-btn');
-                const deliveryAddress = document.getElementById('delivery-address').value;
-                const orderNotes = document.getElementById('order-notes').value;
-                const message = `Orden de Kazoku Izakaya:\n${cart.map(item => `${item.name} (${item.quantity}) - $${item.price} c/u`).join('\n')}\nTotal: $${total.toFixed(2)}\nMétodo de pago: ${selectedPaymentMethod}\nDirección de Entrega: ${deliveryAddress}\nNotas: ${orderNotes}`;
-                const encodedMessage = encodeURIComponent(message);
-                whatsappBtn.href = `https://wa.me/525533355687?text=${encodedMessage}`;
-                whatsappBtn.style.display = total > 0 ? 'inline-flex' : 'none';
-            }
-
-            window.clearCart = function() {
-                cart.length = 0;
-                window.updateCart();
-            };
-
-            window.filterProducts = function(category) {
-                filteredProducts = products.filter(product => product.category === category);
-                displayProducts(filteredProducts, 'vertical', `menu-vertical-${category.toLowerCase().replace(/ /g, '-')}`);
-            };
-
-            const topProducts = [...products].sort((a, b) => b.price - a.price).slice(0, 10);
-            displayProducts(topProducts, 'horizontal', 'menu-horizontal');
-
-            displayProducts(products.filter(product => product.category === 'Sopas'), 'vertical', 'menu-vertical-sopas');
-            displayProducts(products.filter(product => product.category === 'Platos Principales'), 'vertical', 'menu-vertical-principales');
-            displayProducts(products.filter(product => product.category === 'Especialidades'), 'vertical', 'menu-vertical-especialidades');
-            displayProducts(products.filter(product => product.category === 'Postres'), 'vertical', 'menu-vertical-postres');
-        });
-
-        window.toggleCart = function() {
-            const cart = document.getElementById('cart');
-            cart.style.display = cart.style.display === 'none' || cart.style.display === '' ? 'block' : 'none';
-        }
-
-        window.toggleModal = function() {
-            const modal = document.getElementById('edit-modal');
-            modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'block' : 'none';
-        }
-
-        window.toggleProductModal = function() {
-            const modal = document.getElementById('product-modal');
-            modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'block' : 'none';
-        }
-
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
-
-        function toggleMapModal() {
-            const mapModal = document.getElementById('map-modal');
-            mapModal.style.display = mapModal.style.display === 'block' ? 'none' : 'block';
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="script.js"></script>
 </body>
 </html>
